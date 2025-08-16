@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script src="https://unpkg.com/supersimpledev@8.6.4/dayjs.js"></script>
+    <script type="text/babel">
+     
+     const name = "Bisma";
+     const price = 10;
+     const socks = 10;
+     const T_shirt = 8;
+     const productCost = socks + (2*T_shirt);
+     const shippingCost = 5;
+     const totalCost = productCost + shippingCost;
+     console.log(productCost);
+
+     const today = dayjs().format("MMMM D");
+     console.log(today);
+
+     function renderUI(){
+      const currentTime = dayjs().format("HH:mm:ss");
+     
+
+     const div = 
+     <div>
+      
+       <div style={{ border:"2px solid gray",width:"200px",padding:"30px" }}>
+      <button>Hello!</button>
+      <p>My name is {name}.</p>
+      </div>
+
+      <div style={{ border:"2px solid gray",width:"200px",padding:"30px",marginTop:"20px" }}>
+      <p style={{ fontSize : "2rem" }}>Cotton Socks</p>
+      <p style={{ fontSize : "2rem" }}>Price: ${price} </p>
+      <button style={{ fontSize : "1.7rem",padding:"10px",borderRadius:"7px" }}>Add to Cart</button></div>
+        
+       <div style={{ border:"2px solid gray",width:"300px",padding:"30px",marginTop:"20px" }}>
+      <p style={{ fontSize : "2rem" }}>Product cost : ${productCost}</p>
+      <p style={{ fontSize : "2rem" }}>Shipping cost : ${shippingCost}</p>
+      <p style={{ fontSize : "2rem" }}>Total cost : ${totalCost}</p>
+       <button style={{ fontSize : "1.7rem",padding:"10px",borderRadius:"7px" }}>Place your order</button></div>
+
+      <div style={{ border:"2px solid gray",width:"300px",padding:"20px",marginTop:"20px" }}>
+       <p style={{ fontSize : "2rem" }}>Today is {today}</p>
+       </div>
+
+      <div style={{ border:"2px solid gray",width:"400px",padding:"20px",marginTop:"20px" }}>
+       <p style={{ fontSize : "2rem" }}>Current Time : {currentTime}</p>
+       </div>
+
+
+      </div>;
+
+      
+      const container = document.querySelector('.js-container');
+      
+     let root = ReactDOM.createRoot(container);
+      root.render(div);
+     }
+      renderUI();
+      setInterval(renderUI,1000);
+    </script>
+  </body>
+</html>
