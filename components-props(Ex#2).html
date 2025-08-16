@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <!-- ✅ Official React + ReactDOM from unpkg -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/dayjs/dayjs.min.js"></script>
+
+    <script type="text/babel">
+
+     function Products( {name,price,discountPrice,imgSrc} ){
+      return (
+       <>
+       <div style={{ border:"1px solid gray",width:"200px",height:"300px",fontFamily:"monospace",marginBottom:"30px",textAlign:"center",paddingTop:"10px",marginTop:"40px" }}>
+        <img src={imgSrc} width="130px" />
+        <p>{name}</p>
+
+        {
+         discountPrice ? <del>Price : {price} </del> : <p>Price : {price}</p>
+        }
+        {
+         discountPrice ? <p>Discount Price : {discountPrice} </p> : ''
+        }
+        <button>Add to Cart</button>
+       </div>
+       </>
+      );
+
+     }
+
+      function LoginForm(){
+        return (
+         <>
+           <div>
+        <p>Hello! welcome to my website</p> 
+       <div><input type="text" placeholder="Email" /></div>
+       <div>
+       <input type="text" placeholder="Password" /></div>
+    
+        <button>Login</button>
+        <button>Sign Up</button>
+   
+       </div>
+    
+         </>
+        );
+      }
+
+     function App(){
+      return (
+       <>
+        
+         <Products name="Cotton Socks" price="$10.90" imgSrc="https://supersimple.dev/images/cotton-socks.png" />
+         <Products name="Tennis balls" price="$6.00" discountPrice="$5.45"
+         imgSrc="https://supersimple.dev/images/tennis-balls.png" />
+         <Products name="Plain T-Shirt" price="$7.99"
+         imgSrc="https://supersimple.dev/images/plain-t-shirt.png"
+         />
+
+          <LoginForm /> 
+       </>
+      );
+     }
+
+       const container = document.querySelector(".js-container");
+        const root = ReactDOM.createRoot(container);
+        root.render(<App />);
+     
+    </script>
+  </body>
+</html>
