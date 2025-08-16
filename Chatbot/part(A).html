@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <!-- ✅ Official React + ReactDOM from unpkg -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/dayjs/dayjs.min.js"></script>
+
+    <script type="text/babel">
+     
+      function TextInput(){
+        return(
+          <>
+           <div style={{ textAlign:"center",marginTop:"30px",marginBottom:"50px" }}><input type="text" placeholder="Send a message to Chatpot" 
+           style={{ padding:"20px",fontSize:"2.1rem",width:"940px",height:"30px",borderRadius:"10px",fontFamily:"monospace" }}
+           />
+           <button style={{ padding:"10px",fontSize:"2.3rem",backgroundColor:"Aqua",color:"white",marginLeft:"10px",borderRadius:"10px",border:"1px solid Aqua",fontFamily:"monospace",fontWeight:"900" }} >Send</button></div>
+          </>
+        );
+      }
+
+      function ShowMessage({ message, sender }) {
+        const isUser = sender === 'user';
+
+        return (
+          <div
+
+            style={{
+              paddingLeft:"90px",
+              paddingRight:"90px",
+              display: "flex",
+              justifyContent: isUser ? "flex-end" : "flex-start",
+              margin: "10px 0",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                backgroundColor: isUser ? "#d1f7c4" : "#f0f0f0",
+                padding: "10px 15px",
+                borderRadius: "15px",
+                maxWidth: "60%",
+                fontSize: "1.6rem",
+                fontFamily: "monospace",
+              }}
+            >
+              {/* Robot on left */}
+              {!isUser && <img src="robot.png" width="50px" />}
+
+              <span>{message}</span>
+
+              {/* User on right */}
+              {isUser && <img src="user.png" width="40px" />}
+            </div>
+          </div>
+        );
+      }
+
+       function App(){
+         return(
+           <>
+            <TextInput />
+            <ShowMessage 
+            message="Hello Robot!"
+            sender="user"
+            />
+            <ShowMessage 
+            message="Hi Dear! How can I help you ?"
+            sender="robot"
+            />
+            <ShowMessage 
+            message="Do you know about Web?"
+            sender="user"
+            />
+            <ShowMessage 
+            message="Yes sure I Know all about , so on which topic do you want to discuss about information technology ?"
+            sender="robot"
+            />
+            <ShowMessage 
+            message="What is Data Structuring?"
+            sender="user"
+            />
+            <ShowMessage 
+            message="Sort out the data in a well mannered way"
+            sender="robot"
+            />
+            <ShowMessage 
+            message="Oh thats great!"
+            sender="user"
+            />
+            <ShowMessage 
+            message="Yes!"
+            sender="robot"
+            />
+            </>
+         );
+       }
+
+
+        const container = document.querySelector(".js-container");
+        const root = ReactDOM.createRoot(container);
+        root.render(<App />);
+     
+    </script>
+  </body>
+</html>
