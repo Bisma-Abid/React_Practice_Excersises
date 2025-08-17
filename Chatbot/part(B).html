@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ChatBot</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <!-- ✅ React + ReactDOM + Babel -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/supersimpledev@8.6.4/chatbot.js"></script>
+
+    <script type="text/babel">
+      // ✅ Input Component
+      function SaveInput({ onSend }) {
+        const [textInput, setTextInput] = React.useState("");
+
+        function handleChange(event) {
+          setTextInput(event.target.value);
+        }
+
+        function handleSend() {
+          if (textInput.trim() === "") return;
+          onSend(textInput); // ✅ send text to parent
+          setTextInput(""); // clear input after sending
+        }
+
+        return (
+          <div style={{ textAlign: "center", marginTop: "30px", marginBottom: "50px" }}>
+            <input
+              type="text"
+              value={textInput}
+              placeholder="Send a message to Chatbot"
+              style={{
+                padding: "20px",
+                fontSize: "2.1rem",
+                width: "940px",
+                height: "30px",
+                borderRadius: "10px",
+                fontFamily: "monospace"
+              }}
+              onChange={handleChange}
+            />
+            <button
+              style={{
+                padding: "10px",
+                fontSize: "2.3rem",
+                backgroundColor: "Aqua",
+                color: "white",
+                marginLeft: "10px",
+                borderRadius: "10px",
+                border: "4px solid blue",
+                fontFamily: "monospace",
+                fontWeight: "900",
+                cursor:"pointer"
+              
+              }}
+              onClick={handleSend}
+            >
+              Send
+            </button>
+          </div>
+        );
+      }
+
+      // ✅ Main App Component
+      function App() {
+        const [chatMessages, setChatMessages] = React.useState([
+          { message: "Hello Robot!", sender: "user", id: crypto.randomUUID() },
+          { message: "Hi Dear! How can I help you ?", sender: "robot", id: crypto.randomUUID() },
+          { message: "Do you know about Web?", sender: "user", id: crypto.randomUUID() },
+          {
+            message:
+              "Yes sure I know all about it, so on which topic do you want to discuss about information technology?",
+            sender: "robot",
+            id: crypto.randomUUID()
+          }
+        ]);
+
+        function addMessage(userText) {
+          const userMsg = {
+            message: userText,
+            sender: "user",
+            id: crypto.randomUUID()
+          };
+
+          const response = Chatbot.getResponse(userText)
+          const robotMsg = {
+            message: response,
+            sender: "robot",
+            id: crypto.randomUUID()
+          };
+
+          setChatMessages([...chatMessages, userMsg, robotMsg]);
+        }
+
+        return (
+          <>
+            <SaveInput onSend={addMessage} />
+
+            {chatMessages.map((chatMessage) => (
+              <div
+                key={chatMessage.id}
+                style={{
+                  display: "flex",
+                  justifyContent: chatMessage.sender === "user" ? "flex-end" : "flex-start",
+                  margin: "10px 0"
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    backgroundColor: chatMessage.sender === "user" ? "#d1f7c4" : "#f0f0f0",
+                    padding: "10px 15px",
+                    borderRadius: "15px",
+                    maxWidth: "60%",
+                    fontSize: "1.6rem",
+                    fontFamily: "monospace"
+                  }}
+                >
+                  {chatMessage.sender === "robot" && (
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/4712/4712105.png"
+                      width="50px"
+                    />
+                  )}
+
+                  <span>{chatMessage.message}</span>
+
+                  {chatMessage.sender === "user" && (
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
+                      width="40px"
+                    />
+                  )}
+                </div>
+              </div>
+            ))}
+          </>
+        );
+      }
+
+      const container = document.querySelector(".js-container");
+      const root = ReactDOM.createRoot(container);
+      root.render(<App />);
+    </script>
+  </body>
+</html>
